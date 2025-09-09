@@ -63,9 +63,9 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
 
   const quickAmounts = [
     { label: t('investment.quickSelect.min'), value: minAmount.toString() },
-    { label: '0.5 ETH', value: '0.5' },
-    { label: '1 ETH', value: '1' },
-    { label: '2 ETH', value: '2' },
+    { label: '0.5 USDT', value: '0.5' },
+    { label: '1 USDT', value: '1' },
+    { label: '2 USDT', value: '2' },
     { label: t('investment.quickSelect.max'), value: Math.min(maxAmount, remainingAmount).toString() }
   ]
 
@@ -126,7 +126,7 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
               {/* Amount Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-3">
-                  {t('investment.amount')} (ETH) *
+                  {t('investment.amount')} (USDT) *
                 </label>
                 <input
                   type="number"

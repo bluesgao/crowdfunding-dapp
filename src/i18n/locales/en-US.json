@@ -43,7 +43,7 @@
   "stats": {
     "totalProjects": "Total Projects",
     "activeProjects": "Active",
-    "totalRaised": "Total Raised (ETH)",
+    "totalRaised": "Total Raised (USDT)",
     "totalInvestors": "Total Investors",
     "successRate": "Success Rate",
     "averageInvestment": "Average Investment",
@@ -150,6 +150,9 @@
     "card": {
       "startDate": "Start",
       "endDate": "End"
+    },
+    "team": {
+      "title": "Project Team"
     },
     "milestone": {
       "completed": "Completed",

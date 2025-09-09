@@ -43,7 +43,7 @@
   "stats": {
     "totalProjects": "总项目数",
     "activeProjects": "进行中",
-    "totalRaised": "总筹集 (ETH)",
+    "totalRaised": "总筹集 (USDT)",
     "totalInvestors": "总投资者",
     "successRate": "成功率",
     "averageInvestment": "平均投资",
@@ -150,6 +150,9 @@
     "card": {
       "startDate": "开始",
       "endDate": "结束"
+    },
+    "team": {
+      "title": "项目团队"
     },
     "milestone": {
       "completed": "已完成",

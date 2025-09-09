@@ -183,10 +183,40 @@ export default function ProjectDetailPage() {
               
               {/* 项目描述 */}
               <div>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <p className="text-gray-300 text-lg leading-relaxed line-clamp-4">
                   {project.description}
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 项目团队 */}
+        <div className="mb-8">
+          <div className="p-6 sm:p-8">
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.team.title')}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {project.team && project.team.length > 0 ? project.team.map((member) => (
+                <div key={member.id} className="text-center">
+                  <div className="mb-3">
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-gray-600"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiMzNzQxNTEiLz4KPHN2ZyB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0xMiAxNEM5LjMzIDE0IDcgMTYuMzMgNyAxOUgxN0MxNyAxNi4zMyAxNC42NyAxNCAxMiAxNFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+Cjwvc3ZnPg=='
+                      }}
+                    />
+                  </div>
+                  <h4 className="text-base font-semibold text-white mb-1">{member.name}</h4>
+                  <p className="text-blue-400 text-sm">{member.role}</p>
+                </div>
+              )) : (
+                <div className="col-span-full text-center text-gray-400 py-8">
+                  <p>暂无团队信息</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -198,10 +228,10 @@ export default function ProjectDetailPage() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="text-2xl font-bold text-white">
-                  {Number(project.currentAmount).toFixed(2)} ETH
+                  {Number(project.currentAmount).toFixed(2)} USDT
                 </div>
                 <div className="text-sm text-gray-400">
-                  {Number(project.goalAmount).toFixed(2)} ETH
+                  {Number(project.goalAmount).toFixed(2)} USDT
                 </div>
               </div>
               <div className="text-right">
@@ -231,7 +261,7 @@ export default function ProjectDetailPage() {
               <div className="text-center">
                 <div className="text-sm text-gray-400 mb-1">投资范围</div>
                 <div className="text-lg font-semibold text-white">
-                  {Number(project.minContribution).toFixed(2)} - {Number(project.maxContribution).toFixed(2)} ETH
+                  {Number(project.minContribution).toFixed(2)} - {Number(project.maxContribution).toFixed(2)} USDT
                 </div>
               </div>
               <div className="text-center">
@@ -261,8 +291,6 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-
-
         {/* 里程碑 */}
         <div className="mb-8">
           <div className="p-6 sm:p-8">
@@ -280,7 +308,7 @@ export default function ProjectDetailPage() {
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-medium text-white">
-                      {Number(milestone.targetAmount).toFixed(2)} ETH
+                      {Number(milestone.targetAmount).toFixed(2)} USDT
                     </div>
                     {milestone.completed && milestone.completionTime && (
                       <div className="text-xs text-green-400">

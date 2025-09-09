@@ -7,18 +7,13 @@ export default function BackToTop() {
 
   // 监听滚动事件
   useEffect(() => {
+    const scrollContainer = document.querySelector('.scroll-container')
+    
     const toggleVisibility = () => {
-      const scrollContainer = document.querySelector('.scroll-container')
       const scrollTop = scrollContainer ? scrollContainer.scrollTop : window.pageYOffset
-      
-      if (scrollTop > 300) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
+      setIsVisible(scrollTop > 300)
     }
 
-    const scrollContainer = document.querySelector('.scroll-container')
     if (scrollContainer) {
       scrollContainer.addEventListener('scroll', toggleVisibility)
       return () => scrollContainer.removeEventListener('scroll', toggleVisibility)
@@ -31,16 +26,12 @@ export default function BackToTop() {
   // 回到顶部
   const scrollToTop = () => {
     const scrollContainer = document.querySelector('.scroll-container')
+    const scrollOptions = { top: 0, behavior: 'smooth' as const }
+    
     if (scrollContainer) {
-      scrollContainer.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
+      scrollContainer.scrollTo(scrollOptions)
     } else {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
+      window.scrollTo(scrollOptions)
     }
   }
 

@@ -197,6 +197,14 @@ body {
   overflow: hidden;
 }
 
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* RainbowKit 样式自定义 */
 [data-rk] {
   --rk-colors-accentColor: #3b82f6;

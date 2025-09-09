@@ -23,9 +23,6 @@ export default function Header() {
               <h1 className="text-lg sm:text-2xl font-bold text-white">
                 {t('header.title')}
               </h1>
-              <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">
-                {t('header.subtitle')}
-              </p>
             </div>
           </div>
 

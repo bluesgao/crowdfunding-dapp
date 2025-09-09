@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAccount } from 'wagmi'
 import { useNavigate } from 'react-router-dom'
 import CrowdfundingCard from '../components/CrowdfundingCard'
-import InvestModal from '../components/InvestModal'
 import SearchAndFilter from '../components/SearchAndFilter'
 import HeroSection from '../components/HeroSection'
 import { CrowdfundingProject, ProjectStats } from '../types/crowdfunding'
@@ -11,47 +9,36 @@ import { crowdfundingContract } from '../utils/crowdfundingContract'
 
 export default function HomePage() {
   const { t } = useTranslation()
-  const { address, isConnected } = useAccount()
   const navigate = useNavigate()
   const [projects, setProjects] = useState<CrowdfundingProject[]>([])
   const [filteredProjects, setFilteredProjects] = useState<CrowdfundingProject[]>([])
   const [stats, setStats] = useState<ProjectStats | null>(null)
-  const [selectedProject, setSelectedProject] = useState<CrowdfundingProject | null>(null)
-  const [investModalVisible, setInvestModalVisible] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('all')
 
   // 加载数据
   useEffect(() => {
-    // 页面加载时滚动到顶部
-    const scrollContainer = document.querySelector('.scroll-container')
-    if (scrollContainer) {
-      scrollContainer.scrollTop = 0
-    }
-    
     loadData()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // 搜索和过滤
   useEffect(() => {
-    let filtered = projects
-
-    // 搜索过滤
-    if (searchTerm) {
-      filtered = filtered.filter(project =>
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
-    }
-
-    // 分类过滤
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(project => project.tags.includes(categoryFilter))
-    }
-
-    // 按最新时间排序
-    filtered.sort((a, b) => b.startTime - a.startTime)
+    const filtered = projects
+      .filter(project => {
+        // 搜索过滤
+        if (searchTerm) {
+          const searchLower = searchTerm.toLowerCase()
+          return project.title.toLowerCase().includes(searchLower) ||
+                 project.description.toLowerCase().includes(searchLower) ||
+                 project.tags.some(tag => tag.toLowerCase().includes(searchLower))
+        }
+        return true
+      })
+      .filter(project => {
+        // 分类过滤
+        return categoryFilter === 'all' || project.tags.includes(categoryFilter)
+      })
+      .sort((a, b) => b.startTime - a.startTime) // 按最新时间排序
 
     setFilteredProjects(filtered)
   }, [projects, searchTerm, categoryFilter])
@@ -75,25 +62,6 @@ export default function HomePage() {
     })
   }
 
-  const handleInvestProject = (project: CrowdfundingProject) => {
-    setSelectedProject(project)
-    setInvestModalVisible(true)
-  }
-
-
-  const handleInvest = async (project: CrowdfundingProject, amount: string) => {
-    if (!address) {
-      alert(t('wallet.pleaseConnect'))
-      return
-    }
-
-    const success = await crowdfundingContract.investInProject(project.id, amount, address)
-    if (success) {
-      await loadData() // 重新加载数据
-    } else {
-      throw new Error(t('investment.investmentFailed'))
-    }
-  }
 
 
   return (
@@ -128,28 +96,18 @@ export default function HomePage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {filteredProjects.map((project) => (
                 <CrowdfundingCard
                   key={project.id}
                   project={project}
                   onView={handleViewProject}
-                  onInvest={handleInvestProject}
-                  showInvestButton={isConnected}
                 />
               ))}
             </div>
           )}
         </div>
       </div>
-
-      {/* 投资模态框 */}
-      <InvestModal
-        project={selectedProject}
-        visible={investModalVisible}
-        onClose={() => setInvestModalVisible(false)}
-        onInvest={handleInvest}
-      />
     </div>
   )
 }
