@@ -65,9 +65,9 @@ export default function CrowdfundingCard({
       </div>
 
       {/* 内容 */}
-      <div className="p-6">
-        <h3 className="font-bold text-xl text-white mb-2 line-clamp-2">{project.title}</h3>
-        <p className="text-gray-300 text-sm mb-4 line-clamp-2">{project.description}</p>
+      <div className="p-6 sm:p-8">
+        <h3 className="font-bold text-xl sm:text-2xl text-white mb-3 line-clamp-2">{project.title}</h3>
+        <p className="text-gray-300 text-sm sm:text-base mb-4 line-clamp-3">{project.description}</p>
         
         {/* 进度条 */}
         <div className="mb-4">
@@ -84,14 +84,14 @@ export default function CrowdfundingCard({
         </div>
 
         {/* 金额信息 */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-4 mb-5">
           <div>
-            <div className="text-sm text-gray-300">{t('project.raised')}</div>
-            <div className="font-bold text-lg text-blue-400">{formatAmount(project.currentAmount)}</div>
+            <div className="text-sm sm:text-base text-gray-300">{t('project.raised')}</div>
+            <div className="font-bold text-lg sm:text-xl text-blue-400">{formatAmount(project.currentAmount)}</div>
           </div>
           <div>
-            <div className="text-sm text-gray-300">{t('project.goal')}</div>
-            <div className="font-bold text-lg text-white">{formatAmount(project.goalAmount)}</div>
+            <div className="text-sm sm:text-base text-gray-300">{t('project.goal')}</div>
+            <div className="font-bold text-lg sm:text-xl text-white">{formatAmount(project.goalAmount)}</div>
           </div>
         </div>
 
@@ -118,17 +118,17 @@ export default function CrowdfundingCard({
         )}
 
         {/* 操作按钮 */}
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => onView?.(project)}
-            className="flex-1 bg-gray-700 hover:bg-gray-600 text-gray-200 py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
+            className="flex-1 bg-gray-700 hover:bg-gray-600 text-gray-200 py-3 px-4 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
           >
             {t('common.viewDetails')}
           </button>
           {showInvestButton && project.status === 'active' && (
             <button
               onClick={() => onInvest?.(project)}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
             >
               {t('project.invest')}
             </button>

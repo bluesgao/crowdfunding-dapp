@@ -132,10 +132,21 @@
     "title": "Project Details",
     "description": "Project Description",
     "milestones": "Milestones",
+    "fundingProgress": "Funding Progress",
     "investors": "Investors",
     "investments": "Investment Records",
     "investNow": "Invest Now",
     "backToProjects": "Back to Projects",
+    "progress": {
+      "raised": "Raised",
+      "goal": "Goal",
+      "investors": "investors",
+      "startDate": "Start",
+      "endDate": "End",
+      "daysLeft": "{{days}} days left",
+      "ended": "Ended",
+      "timeLeft": "Time Left"
+    },
     "milestone": {
       "completed": "Completed",
       "pending": "Pending"

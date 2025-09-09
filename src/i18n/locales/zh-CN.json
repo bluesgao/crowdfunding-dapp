@@ -132,10 +132,21 @@
     "title": "项目详情",
     "description": "项目描述",
     "milestones": "里程碑",
+    "fundingProgress": "筹集进度",
     "investors": "投资者",
     "investments": "投资记录",
     "investNow": "立即投资",
     "backToProjects": "返回项目列表",
+    "progress": {
+      "raised": "已筹集",
+      "goal": "目标",
+      "investors": "位投资者",
+      "startDate": "开始",
+      "endDate": "结束",
+      "daysLeft": "剩余 {{days}} 天",
+      "ended": "已结束",
+      "timeLeft": "剩余时间"
+    },
     "milestone": {
       "completed": "已完成",
       "pending": "待完成"

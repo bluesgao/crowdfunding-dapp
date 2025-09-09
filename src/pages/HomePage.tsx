@@ -15,7 +15,6 @@ export default function HomePage() {
   const navigate = useNavigate()
   const [projects, setProjects] = useState<CrowdfundingProject[]>([])
   const [filteredProjects, setFilteredProjects] = useState<CrowdfundingProject[]>([])
-  const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState<ProjectStats | null>(null)
   const [selectedProject, setSelectedProject] = useState<CrowdfundingProject | null>(null)
   const [investModalVisible, setInvestModalVisible] = useState(false)
@@ -24,6 +23,12 @@ export default function HomePage() {
 
   // 加载数据
   useEffect(() => {
+    // 页面加载时滚动到顶部
+    const scrollContainer = document.querySelector('.scroll-container')
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0
+    }
+    
     loadData()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -52,7 +57,6 @@ export default function HomePage() {
   }, [projects, searchTerm, categoryFilter])
 
   const loadData = async () => {
-    setLoading(true)
     try {
       const [allProjects, projectStats] = await Promise.all([
         crowdfundingContract.getAllProjects(),
@@ -62,8 +66,6 @@ export default function HomePage() {
       setStats(projectStats)
     } catch {
       alert(t('errors.loadDataFailed'))
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -95,16 +97,9 @@ export default function HomePage() {
 
 
   return (
-    <div className="min-h-screen relative">
-      {/* 全局背景系统 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/8 via-purple-600/12 to-pink-600/8"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/6 via-blue-500/8 to-purple-500/6 blur-3xl"></div>
-      
-      {/* 全局浮动光球 */}
-      <div className="absolute -top-6 -left-6 w-40 h-40 bg-blue-500/15 rounded-full blur-2xl animate-pulse"></div>
-      <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-      <div className="absolute top-1/2 -left-8 w-24 h-24 bg-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
-      <div className="absolute top-1/4 -right-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <div className="min-h-screen relative overflow-x-hidden">
+      {/* 简化背景 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"></div>
       
       <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
         {/* 头部 */}
@@ -124,12 +119,7 @@ export default function HomePage() {
 
         {/* 项目网格 */}
         <div className="mb-8 sm:mb-10">
-          {loading ? (
-            <div className="text-center py-16">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
-              <p className="mt-4 text-gray-300">{t('common.loading')}</p>
-            </div>
-          ) : filteredProjects.length === 0 ? (
+          {filteredProjects.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-6">🚀</div>
               <h3 className="text-2xl font-semibold text-gray-400 mb-3">{t('project.noProjects')}</h3>
@@ -138,7 +128,7 @@ export default function HomePage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {filteredProjects.map((project) => (
                 <CrowdfundingCard
                   key={project.id}

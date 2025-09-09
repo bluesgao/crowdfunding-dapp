@@ -418,6 +418,459 @@ export const mockProjects: CrowdfundingProject[] = [
             }
         ],
         tags: ['音乐', '版权', '区块链']
+    },
+    {
+        id: '11',
+        title: '智能健身应用',
+        description: '开发一款AI驱动的智能健身应用，提供个性化训练计划和实时健康监测。',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+        creator: '0x1234567890123456789012345678901234567890',
+        goalAmount: '65',
+        currentAmount: '42.8',
+        startTime: Date.now() - 8 * 24 * 60 * 60 * 1000, // 8天前
+        endTime: Date.now() + 22 * 24 * 60 * 60 * 1000, // 22天后
+        category: '健康',
+        status: 'active',
+        investors: 95,
+        minContribution: '0.2',
+        maxContribution: '6.5',
+        milestones: [
+            {
+                id: '1',
+                title: 'AI算法开发',
+                description: '开发个性化训练算法',
+                targetAmount: '25',
+                completed: true,
+                completionTime: Date.now() - 5 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '用户界面设计',
+                description: '设计直观的用户界面',
+                targetAmount: '45',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '应用发布',
+                description: '正式发布健身应用',
+                targetAmount: '65',
+                completed: false
+            }
+        ],
+        tags: ['健身', 'AI', '健康监测']
+    },
+    {
+        id: '12',
+        title: '可持续时尚品牌',
+        description: '创建一个专注于环保材料的时尚品牌，推动可持续时尚发展。',
+        image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop',
+        creator: '0x2345678901234567890123456789012345678901',
+        goalAmount: '85',
+        currentAmount: '85',
+        startTime: Date.now() - 40 * 24 * 60 * 60 * 1000, // 40天前
+        endTime: Date.now() - 10 * 24 * 60 * 60 * 1000, // 10天前
+        category: '时尚',
+        status: 'completed',
+        investors: 167,
+        minContribution: '0.3',
+        maxContribution: '8.5',
+        milestones: [
+            {
+                id: '1',
+                title: '材料研发',
+                description: '研发环保材料',
+                targetAmount: '30',
+                completed: true,
+                completionTime: Date.now() - 30 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '产品设计',
+                description: '设计时尚产品',
+                targetAmount: '60',
+                completed: true,
+                completionTime: Date.now() - 20 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '3',
+                title: '品牌发布',
+                description: '正式发布时尚品牌',
+                targetAmount: '85',
+                completed: true,
+                completionTime: Date.now() - 10 * 24 * 60 * 60 * 1000
+            }
+        ],
+        tags: ['时尚', '环保', '可持续']
+    },
+    {
+        id: '13',
+        title: '太空探索游戏',
+        description: '开发一款沉浸式的太空探索游戏，让玩家体验宇宙探索的乐趣。',
+        image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop',
+        creator: '0x3456789012345678901234567890123456789012',
+        goalAmount: '180',
+        currentAmount: '23.5',
+        startTime: Date.now() - 2 * 24 * 60 * 60 * 1000, // 2天前
+        endTime: Date.now() + 28 * 24 * 60 * 60 * 1000, // 28天后
+        category: '游戏',
+        status: 'active',
+        investors: 34,
+        minContribution: '0.5',
+        maxContribution: '18',
+        milestones: [
+            {
+                id: '1',
+                title: '游戏引擎',
+                description: '开发3D游戏引擎',
+                targetAmount: '60',
+                completed: false
+            },
+            {
+                id: '2',
+                title: '宇宙系统',
+                description: '构建宇宙探索系统',
+                targetAmount: '120',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '多人模式',
+                description: '实现多人游戏模式',
+                targetAmount: '180',
+                completed: false
+            }
+        ],
+        tags: ['太空', '游戏', '3D']
+    },
+    {
+        id: '14',
+        title: '智能交通系统',
+        description: '开发基于AI的智能交通管理系统，优化城市交通流量。',
+        image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop',
+        creator: '0x4567890123456789012345678901234567890123',
+        goalAmount: '250',
+        currentAmount: '189.7',
+        startTime: Date.now() - 22 * 24 * 60 * 60 * 1000, // 22天前
+        endTime: Date.now() + 8 * 24 * 60 * 60 * 1000, // 8天后
+        category: '科技',
+        status: 'active',
+        investors: 245,
+        minContribution: '1.0',
+        maxContribution: '25',
+        milestones: [
+            {
+                id: '1',
+                title: 'AI算法',
+                description: '开发交通优化算法',
+                targetAmount: '100',
+                completed: true,
+                completionTime: Date.now() - 15 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '传感器网络',
+                description: '部署交通传感器网络',
+                targetAmount: '175',
+                completed: true,
+                completionTime: Date.now() - 8 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '3',
+                title: '系统集成',
+                description: '完成系统集成和测试',
+                targetAmount: '250',
+                completed: false
+            }
+        ],
+        tags: ['交通', 'AI', '智慧城市']
+    },
+    {
+        id: '15',
+        title: '海洋清洁机器人',
+        description: '开发自主海洋清洁机器人，帮助清理海洋塑料垃圾。',
+        image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop',
+        creator: '0x5678901234567890123456789012345678901234',
+        goalAmount: '95',
+        currentAmount: '15.2',
+        startTime: Date.now() - 5 * 24 * 60 * 60 * 1000, // 5天前
+        endTime: Date.now() + 25 * 24 * 60 * 60 * 1000, // 25天后
+        category: '环保',
+        status: 'active',
+        investors: 28,
+        minContribution: '0.4',
+        maxContribution: '9.5',
+        milestones: [
+            {
+                id: '1',
+                title: '机器人设计',
+                description: '设计海洋清洁机器人',
+                targetAmount: '35',
+                completed: false
+            },
+            {
+                id: '2',
+                title: 'AI识别系统',
+                description: '开发垃圾识别系统',
+                targetAmount: '65',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '海洋测试',
+                description: '进行海洋环境测试',
+                targetAmount: '95',
+                completed: false
+            }
+        ],
+        tags: ['海洋', '机器人', '环保']
+    },
+    {
+        id: '16',
+        title: '虚拟现实教育平台',
+        description: '创建沉浸式VR教育平台，让学习变得更加生动有趣。',
+        image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400&h=300&fit=crop',
+        creator: '0x6789012345678901234567890123456789012345',
+        goalAmount: '130',
+        currentAmount: '78.9',
+        startTime: Date.now() - 16 * 24 * 60 * 60 * 1000, // 16天前
+        endTime: Date.now() + 14 * 24 * 60 * 60 * 1000, // 14天后
+        category: '教育',
+        status: 'active',
+        investors: 156,
+        minContribution: '0.3',
+        maxContribution: '13',
+        milestones: [
+            {
+                id: '1',
+                title: 'VR内容制作',
+                description: '制作VR教育内容',
+                targetAmount: '50',
+                completed: true,
+                completionTime: Date.now() - 10 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '平台开发',
+                description: '开发VR教育平台',
+                targetAmount: '90',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '内容库建设',
+                description: '建设丰富的内容库',
+                targetAmount: '130',
+                completed: false
+            }
+        ],
+        tags: ['VR', '教育', '沉浸式']
+    },
+    {
+        id: '17',
+        title: '区块链身份认证',
+        description: '构建去中心化的身份认证系统，保护用户隐私和数据安全。',
+        image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
+        creator: '0x7890123456789012345678901234567890123456',
+        goalAmount: '160',
+        currentAmount: '160',
+        startTime: Date.now() - 45 * 24 * 60 * 60 * 1000, // 45天前
+        endTime: Date.now() - 15 * 24 * 60 * 60 * 1000, // 15天前
+        category: '科技',
+        status: 'completed',
+        investors: 198,
+        minContribution: '0.8',
+        maxContribution: '16',
+        milestones: [
+            {
+                id: '1',
+                title: '智能合约开发',
+                description: '开发身份认证智能合约',
+                targetAmount: '60',
+                completed: true,
+                completionTime: Date.now() - 35 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '安全协议',
+                description: '实现安全认证协议',
+                targetAmount: '110',
+                completed: true,
+                completionTime: Date.now() - 25 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '3',
+                title: '系统部署',
+                description: '部署身份认证系统',
+                targetAmount: '160',
+                completed: true,
+                completionTime: Date.now() - 15 * 24 * 60 * 60 * 1000
+            }
+        ],
+        tags: ['区块链', '身份认证', '隐私']
+    },
+    {
+        id: '18',
+        title: '智能宠物护理',
+        description: '开发智能宠物护理设备，实时监测宠物健康状况。',
+        image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop',
+        creator: '0x8901234567890123456789012345678901234567',
+        goalAmount: '70',
+        currentAmount: '8.3',
+        startTime: Date.now() - 1 * 24 * 60 * 60 * 1000, // 1天前
+        endTime: Date.now() + 29 * 24 * 60 * 60 * 1000, // 29天后
+        category: '健康',
+        status: 'active',
+        investors: 12,
+        minContribution: '0.2',
+        maxContribution: '7',
+        milestones: [
+            {
+                id: '1',
+                title: '设备设计',
+                description: '设计宠物监测设备',
+                targetAmount: '25',
+                completed: false
+            },
+            {
+                id: '2',
+                title: '健康算法',
+                description: '开发健康监测算法',
+                targetAmount: '50',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '产品测试',
+                description: '进行产品测试和优化',
+                targetAmount: '70',
+                completed: false
+            }
+        ],
+        tags: ['宠物', '健康监测', '智能设备']
+    },
+    {
+        id: '19',
+        title: '失败项目示例',
+        description: '这是一个失败的众筹项目示例，用于展示平台的不同状态。',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
+        creator: '0x9012345678901234567890123456789012345678',
+        goalAmount: '200',
+        currentAmount: '45.6',
+        startTime: Date.now() - 50 * 24 * 60 * 60 * 1000, // 50天前
+        endTime: Date.now() - 20 * 24 * 60 * 60 * 1000, // 20天前
+        category: '科技',
+        status: 'failed',
+        investors: 67,
+        minContribution: '1.0',
+        maxContribution: '20',
+        milestones: [
+            {
+                id: '1',
+                title: '概念验证',
+                description: '完成概念验证',
+                targetAmount: '50',
+                completed: true,
+                completionTime: Date.now() - 40 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '原型开发',
+                description: '开发产品原型',
+                targetAmount: '100',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '产品发布',
+                description: '正式发布产品',
+                targetAmount: '200',
+                completed: false
+            }
+        ],
+        tags: ['失败', '示例', '科技']
+    },
+    {
+        id: '20',
+        title: '取消项目示例',
+        description: '这是一个被取消的众筹项目示例，展示项目取消状态。',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
+        creator: '0x0123456789012345678901234567890123456789',
+        goalAmount: '90',
+        currentAmount: '23.4',
+        startTime: Date.now() - 30 * 24 * 60 * 60 * 1000, // 30天前
+        endTime: Date.now() - 5 * 24 * 60 * 60 * 1000, // 5天前
+        category: '金融',
+        status: 'cancelled',
+        investors: 34,
+        minContribution: '0.5',
+        maxContribution: '9',
+        milestones: [
+            {
+                id: '1',
+                title: '市场调研',
+                description: '完成市场调研',
+                targetAmount: '30',
+                completed: true,
+                completionTime: Date.now() - 25 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: '产品设计',
+                description: '设计产品方案',
+                targetAmount: '60',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '产品开发',
+                description: '开发产品功能',
+                targetAmount: '90',
+                completed: false
+            }
+        ],
+        tags: ['取消', '示例', '金融']
+    },
+    {
+        id: '21',
+        title: '智能农业无人机',
+        description: '开发智能农业无人机系统，实现精准农业和自动化农田管理。',
+        image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop',
+        creator: '0x1111111111111111111111111111111111111111',
+        goalAmount: '140',
+        currentAmount: '67.3',
+        startTime: Date.now() - 14 * 24 * 60 * 60 * 1000, // 14天前
+        endTime: Date.now() + 16 * 24 * 60 * 60 * 1000, // 16天后
+        category: '农业',
+        status: 'active',
+        investors: 112,
+        minContribution: '0.5',
+        maxContribution: '14',
+        milestones: [
+            {
+                id: '1',
+                title: '无人机设计',
+                description: '设计农业专用无人机',
+                targetAmount: '50',
+                completed: true,
+                completionTime: Date.now() - 10 * 24 * 60 * 60 * 1000
+            },
+            {
+                id: '2',
+                title: 'AI识别系统',
+                description: '开发作物识别和监测系统',
+                targetAmount: '95',
+                completed: false
+            },
+            {
+                id: '3',
+                title: '批量生产',
+                description: '开始批量生产无人机',
+                targetAmount: '140',
+                completed: false
+            }
+        ],
+        tags: ['农业', '无人机', 'AI', '精准农业']
     }
 ]
 

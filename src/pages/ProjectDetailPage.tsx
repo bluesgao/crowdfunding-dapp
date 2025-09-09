@@ -12,18 +12,22 @@ export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [project, setProject] = useState<CrowdfundingProject | null>(null)
-  const [loading, setLoading] = useState(true)
   const [investModalVisible, setInvestModalVisible] = useState(false)
 
 
   useEffect(() => {
+    // 页面加载时滚动到顶部
+    const scrollContainer = document.querySelector('.scroll-container')
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0
+    }
+    
     if (id) {
       loadProject()
     }
   }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadProject = async () => {
-    setLoading(true)
     try {
       const projects = await crowdfundingContract.getAllProjects()
       const foundProject = projects.find(p => p.id === id)
@@ -36,8 +40,6 @@ export default function ProjectDetailPage() {
     } catch (error) {
       console.error('Failed to load project:', error)
       navigate('/')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -75,41 +77,12 @@ export default function ProjectDetailPage() {
     }
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen relative">
-        {/* 全局背景系统 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/8 via-purple-600/12 to-pink-600/8"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/6 via-blue-500/8 to-purple-500/6 blur-3xl"></div>
-        
-        {/* 全局浮动光球 */}
-        <div className="absolute -top-6 -left-6 w-40 h-40 bg-blue-500/15 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-        <div className="absolute top-1/2 -left-8 w-24 h-24 bg-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
-        <div className="absolute top-1/4 -right-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        
-        <div className="relative container mx-auto px-3 sm:px-4 py-4 sm:py-8">
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-300">{t('common.loading')}</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   if (!project) {
     return (
-      <div className="min-h-screen relative">
-        {/* 全局背景系统 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/8 via-purple-600/12 to-pink-600/8"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/6 via-blue-500/8 to-purple-500/6 blur-3xl"></div>
-        
-        {/* 全局浮动光球 */}
-        <div className="absolute -top-6 -left-6 w-40 h-40 bg-blue-500/15 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-        <div className="absolute top-1/2 -left-8 w-24 h-24 bg-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
-        <div className="absolute top-1/4 -right-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="min-h-screen relative overflow-x-hidden">
+        {/* 简化背景 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"></div>
         
         <div className="relative container mx-auto px-3 sm:px-4 py-4 sm:py-8">
           <div className="text-center py-12">
@@ -132,170 +105,167 @@ export default function ProjectDetailPage() {
   const timeRemaining = Math.ceil((Number(project.endTime) - Date.now()) / (1000 * 60 * 60 * 24))
 
   return (
-    <div className="min-h-screen relative">
-      {/* 全局背景系统 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/8 via-purple-600/12 to-pink-600/8"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/6 via-blue-500/8 to-purple-500/6 blur-3xl"></div>
-      
-      {/* 全局浮动光球 */}
-      <div className="absolute -top-6 -left-6 w-40 h-40 bg-blue-500/15 rounded-full blur-2xl animate-pulse"></div>
-      <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-      <div className="absolute top-1/2 -left-8 w-24 h-24 bg-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
-      <div className="absolute top-1/4 -right-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <div className="min-h-screen relative overflow-x-hidden">
+      {/* 简化背景 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"></div>
       
       <div className="relative container mx-auto px-3 sm:px-4 py-4 sm:py-8 max-w-4xl">
         {/* 面包屑导航 */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gray-900/10 backdrop-blur-sm rounded-xl border border-gray-700/10"></div>
-          <div className="relative px-4 py-3">
-            <nav className="flex items-center space-x-3 text-sm">
+        <div className="mb-6">
+          <div className="px-2 py-2">
+            <nav className="flex items-center space-x-3 text-base">
               {/* 首页链接 */}
               <button
                 onClick={() => navigate('/')}
-                className="flex items-center text-gray-400 hover:text-white transition-colors group"
+                className="flex items-center text-gray-300 hover:text-white"
               >
-                <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
               </button>
               
               {/* 分隔符 */}
               <div className="flex items-center">
-                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
               
               {/* 项目标题 */}
-              <span className="text-white font-medium truncate max-w-xs sm:max-w-md">
+              <span className="text-white font-semibold truncate max-w-xs sm:max-w-md">
                 {project?.title || t('common.loading')}
               </span>
             </nav>
           </div>
         </div>
 
-        {/* 项目图片 */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm rounded-2xl border border-gray-700/20"></div>
-          <div className="relative p-4">
-            <img
-              alt={project.title}
-              src={project.image}
-              className="w-full h-64 sm:h-80 object-cover rounded-xl"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement
-                target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMzc0MTUxIi8+CjxwYXRoIGQ9Ik0zNTAgMTUwSDQ1MFYyNTBIMzUwVjE1MFoiIGZpbGw9IiM2QjcyODAiLz4KPHN2ZyB4PSIzNTAiIHk9IjE1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMlM2LjQ4IDIyIDEyIDIyUzIyIDE3LjUyIDIyIDEyUzE3LjUyIDIgMTIgMlpNMTMgMTdIMTFWMTVIMTNWMTdaTTEzIDEzSDExVjdIMTNWMTNaIiBmaWxsPSIjOUNBM0FGIi8+Cjwvc3ZnPgo8L3N2Zz4='
-              }}
-            />
-          </div>
-        </div>
-
-        {/* 项目基本信息 */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm rounded-2xl border border-gray-700/20"></div>
-          <div className="relative p-6 sm:p-8">
-            {/* 头部信息 */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}>
+        {/* 项目图片和基本信息 */}
+        <div className="mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            {/* 项目图片 */}
+            <div className="order-2 lg:order-1 relative">
+              <img
+                alt={project.title}
+                src={project.image}
+                className="w-full h-64 sm:h-80 object-cover rounded-xl"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMzc0MTUxIi8+CjxwYXRoIGQ9Ik0zNTAgMTUwSDQ1MFYyNTBIMzUwVjE1MFoiIGZpbGw9IiM2QjcyODAiLz4KPHN2ZyB4PSIzNTAiIHk9IjE1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMlM2LjQ4IDIyIDEyIDIyUzIyIDE3LjUyIDIyIDEyUzE3LjUyIDIgMTIgMlpNMTMgMTdIMTFWMTVIMTNWMTdaTTEzIDEzSDExVjdIMTNWMTNaIiBmaWxsPSIjOUNBM0FGIi8+Cjwvc3ZnPgo8L3N2Zz4='
+                }}
+              />
+              {/* 状态覆盖层 */}
+              <div className="absolute top-4 left-4">
+                <span className={`px-4 py-2 rounded-full text-sm font-semibold shadow-lg ${getStatusColor(project.status)}`}>
                   {getStatusText(project.status)}
                 </span>
-                <span className="text-gray-400 text-sm">•</span>
-                <span className="text-gray-400 text-sm">{project.category}</span>
+              </div>
+            </div>
+            
+            {/* 项目基本信息 */}
+            <div className="order-1 lg:order-2 flex flex-col justify-center space-y-6">
+              {/* 标题 */}
+              <div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+                  {project.title}
+                </h1>
               </div>
               
               {/* 项目标签 */}
               {project.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, index) => (
-                    <span key={index} className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">
+                    <span key={index} className="bg-blue-500/20 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium border border-blue-500/30 hover:bg-blue-500/30 transition-colors">
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
-            </div>
-            
-            {/* 标题和描述 */}
-            <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white leading-tight">{project.title}</h1>
-              <p className="text-gray-300 text-lg leading-relaxed">{project.description}</p>
+              
+              {/* 项目描述 */}
+              <div>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  {project.description}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* 进度信息 */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm rounded-2xl border border-gray-700/20"></div>
-          <div className="relative p-6 sm:p-8">
+        <div className="mb-8">
+          <div className="p-6 sm:p-8">
+            <h3 className="text-lg font-semibold text-white mb-6">{t('projectDetail.fundingProgress')}</h3>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="text-2xl font-bold text-white">
                   {Number(project.currentAmount).toFixed(2)} ETH
                 </div>
                 <div className="text-sm text-gray-400">
-                  已筹集 / {Number(project.goalAmount).toFixed(2)} ETH 目标
+                  {Number(project.goalAmount).toFixed(2)} ETH
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-semibold text-blue-400">
+                <div className="text-2xl font-bold text-blue-400">
                   {progressPercentage.toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-400">
-                  {project.investors} 位投资者
+                  {project.investors} {t('projectDetail.progress.investors')}
                 </div>
               </div>
             </div>
             
             <div className="w-full bg-gray-700 rounded-full h-2 mb-4">
               <div 
-                className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                className="bg-blue-500 h-2 rounded-full"
                 style={{ width: `${Math.min(progressPercentage, 100)}%` }}
               ></div>
             </div>
             
             <div className="flex items-center justify-between text-sm text-gray-400 mb-6">
-              <span>开始: {new Date(project.startTime).toLocaleDateString()}</span>
-              <span className="text-blue-400 font-medium">
-                {timeRemaining > 0 ? `剩余 ${timeRemaining} 天` : '已结束'}
-              </span>
-              <span>结束: {new Date(project.endTime).toLocaleDateString()}</span>
+              <span>{t('projectDetail.progress.startDate')}: {new Date(project.startTime).toLocaleDateString()}</span>
+              <span>{t('projectDetail.progress.endDate')}: {new Date(project.endTime).toLocaleDateString()}</span>
             </div>
             
             {/* 投资信息 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="text-center">
                 <div className="text-sm text-gray-400 mb-1">投资范围</div>
                 <div className="text-lg font-semibold text-white">
                   {Number(project.minContribution).toFixed(2)} - {Number(project.maxContribution).toFixed(2)} ETH
                 </div>
               </div>
-              <div>
-                <div className="text-sm text-gray-400 mb-1">风险提示</div>
-                <div className="text-xs text-yellow-400">投资有风险，请谨慎决策</div>
+              <div className="text-center">
+                <div className="text-sm text-gray-400 mb-1">{t('projectDetail.progress.timeLeft')}</div>
+                <div className="text-lg font-semibold text-blue-400">
+                  {timeRemaining > 0 ? t('projectDetail.progress.daysLeft', { days: timeRemaining }) : t('projectDetail.progress.ended')}
+                </div>
+              </div>
+              <div className="text-center">
+                {project.status === 'active' ? (
+                  <button
+                    onClick={() => setInvestModalVisible(true)}
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  >
+                    {t('projectDetail.investNow')}
+                  </button>
+                ) : (
+                  <>
+                    <div className="text-sm text-gray-400 mb-1">状态</div>
+                    <div className="text-lg font-semibold text-gray-500">
+                      {getStatusText(project.status)}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
-            
-            {/* 投资按钮 */}
-            {project.status === 'active' && (
-              <div className="flex justify-center">
-                <button
-                  onClick={() => setInvestModalVisible(true)}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  {t('projectDetail.investNow')}
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
 
 
         {/* 里程碑 */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm rounded-2xl border border-gray-700/20"></div>
-          <div className="relative p-6 sm:p-8">
+        <div className="mb-8">
+          <div className="p-6 sm:p-8">
             <h3 className="text-lg font-semibold text-white mb-4">项目里程碑</h3>
             <div className="space-y-3">
               {project.milestones.map((milestone, index) => (

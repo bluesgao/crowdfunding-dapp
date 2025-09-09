@@ -91,7 +91,7 @@ export default function SearchAndFilter({
   return (
     <div className="relative mb-8 sm:mb-10">
       {/* 背景容器 */}
-      <div className="absolute inset-0 bg-gray-900/30 backdrop-blur-sm rounded-2xl border border-gray-700/30"></div>
+      <div className="absolute inset-0 bg-gray-900 rounded-2xl border border-gray-700"></div>
       
       <div className="relative p-6 sm:p-8">
         {/* 搜索框区域 */}
@@ -102,7 +102,7 @@ export default function SearchAndFilter({
               placeholder={t('search.placeholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-12 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-base text-white placeholder-gray-300 transition-all duration-200"
+              className="w-full pl-12 pr-12 py-4 bg-gray-800 border border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base text-white placeholder-gray-300"
             />
             
             {/* 搜索图标 */}
@@ -116,7 +116,7 @@ export default function SearchAndFilter({
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1.5 rounded-lg hover:bg-white/20 transition-colors"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1.5 rounded-full hover:bg-white/20 transition-colors"
               >
                 <svg className="w-4 h-4 text-gray-400 hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -139,12 +139,12 @@ export default function SearchAndFilter({
               WebkitOverflowScrolling: 'touch'
             }}
           >
-            <div className="flex items-center gap-2 pb-1" style={{ width: 'max-content' }}>
+            <div className="flex items-center gap-2" style={{ width: 'max-content' }}>
               {popularTags.map((tag) => (
                 <button
                   key={tag.key}
                   onClick={() => setCategoryFilter(tag.key)}
-                  className={`px-3 py-2 rounded-xl text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap flex-shrink-0 ${
                     categoryFilter === tag.key
                       ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
                       : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white border border-white/10'
@@ -162,7 +162,7 @@ export default function SearchAndFilter({
               setCategoryFilter('all')
               setSearchTerm('')
             }}
-            className="flex-shrink-0 p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-gray-300 hover:bg-white/20 hover:text-white transition-all duration-200"
+            className="flex-shrink-0 px-4 py-1.5 rounded-full bg-gray-800 border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white flex items-center justify-center"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
