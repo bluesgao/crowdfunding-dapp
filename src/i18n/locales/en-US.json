@@ -147,6 +147,10 @@
       "ended": "Ended",
       "timeLeft": "Time Left"
     },
+    "card": {
+      "startDate": "Start",
+      "endDate": "End"
+    },
     "milestone": {
       "completed": "Completed",
       "pending": "Pending"

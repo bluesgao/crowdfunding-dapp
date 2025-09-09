@@ -147,6 +147,10 @@
       "ended": "已结束",
       "timeLeft": "剩余时间"
     },
+    "card": {
+      "startDate": "开始",
+      "endDate": "结束"
+    },
     "milestone": {
       "completed": "已完成",
       "pending": "待完成"
