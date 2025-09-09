@@ -1,0 +1,185 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "backToHome": "Back to Home",
+    "backToTop": "Back to Top",
+    "viewDetails": "Detail",
+    "unknown": "Unknown"
+  },
+  "language": {
+    "chinese": "中文",
+    "english": "EN",
+    "switchToEnglish": "切换到英文",
+    "switchToChinese": "Switch to Chinese"
+  },
+  "header": {
+    "title": "Crowdfunding Platform",
+    "subtitle": "Bridging dreams and reality, where every idea has the chance to shine",
+    "connectWallet": "Connect Wallet",
+    "language": "Language",
+    "wallet": "Wallet",
+    "openMenu": "Open Menu",
+    "closeMenu": "Close Menu",
+    "languageDescription": "Switch interface language",
+    "walletDescription": "Connect your digital wallet"
+  },
+  "stats": {
+    "totalProjects": "Total Projects",
+    "activeProjects": "Active",
+    "totalRaised": "Total Raised (ETH)",
+    "totalInvestors": "Total Investors",
+    "successRate": "Success Rate",
+    "averageInvestment": "Average Investment",
+    "totalGoal": "Total Goal"
+  },
+  "search": {
+    "title": "Search Projects",
+    "placeholder": "Enter project name, description or tags...",
+    "category": "Project Category",
+    "status": "Project Status",
+    "sortBy": "Sort By",
+    "quickFilter": "Quick Filter",
+    "clearFilter": "Clear Filter",
+    "popular": "Popular",
+    "foundProjects": "Found {{count}} projects",
+    "categories": {
+      "all": "All Categories",
+      "tech": "Technology",
+      "environment": "Environment",
+      "game": "Gaming",
+      "art": "Art",
+      "education": "Education",
+      "health": "Health",
+      "finance": "Finance",
+      "music": "Music",
+      "sports": "Sports",
+      "food": "Food",
+      "travel": "Travel",
+      "fashion": "Fashion",
+      "ai": "AI",
+      "blockchain": "Blockchain",
+      "nft": "NFT",
+      "startup": "Startup",
+      "social": "Social",
+      "charity": "Charity",
+      "innovation": "Innovation",
+      "sustainability": "Sustainability",
+      "community": "Community",
+      "culture": "Culture",
+      "entertainment": "Entertainment",
+      "lifestyle": "Lifestyle",
+      "wellness": "Wellness",
+      "productivity": "Productivity",
+      "security": "Security",
+      "privacy": "Privacy",
+      "accessibility": "Accessibility",
+      "inclusion": "Inclusion",
+      "other": "Other"
+    },
+    "statuses": {
+      "all": "All Status",
+      "active": "Active",
+      "completed": "Completed",
+      "myProjects": "My Projects"
+    },
+    "sortOptions": {
+      "newest": "Newest",
+      "goalLow": "Goal Amount ↑",
+      "goalHigh": "Goal Amount ↓",
+      "progressHigh": "Highest Progress",
+      "investorsHigh": "Most Investors"
+    }
+  },
+  "project": {
+    "title": "Crowdfunding Platform",
+    "subtitle": "Discover, invest and support innovative blockchain projects",
+    "noProjects": "No Projects",
+    "noProjectsFound": "No matching projects found",
+    "noProjectsDescription": "No crowdfunding projects yet",
+    "viewDetails": "Detail",
+    "invest": "Invest",
+    "goal": "Goal",
+    "raised": "Raised",
+    "investors": "Investors",
+    "investorsCount": "investors",
+    "daysLeft": "Days Left",
+    "progress": "Progress",
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "failed": "Failed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "projectDetail": {
+    "title": "Project Details",
+    "description": "Project Description",
+    "milestones": "Milestones",
+    "investors": "Investors",
+    "investments": "Investment Records",
+    "investNow": "Invest Now",
+    "backToProjects": "Back to Projects",
+    "milestone": {
+      "completed": "Completed",
+      "pending": "Pending"
+    }
+  },
+  "investment": {
+    "title": "Invest in Project",
+    "amount": "Investment Amount",
+    "range": "Investment Range",
+    "remaining": "Remaining Goal",
+    "summary": "Investment Summary",
+    "goalReached": "Congratulations! Your investment will help the project reach its goal!",
+    "quickSelect": {
+      "title": "Quick Select",
+      "min": "Min",
+      "max": "Max"
+    },
+    "confirmInvestment": "Confirm",
+    "processing": "Processing...",
+    "investmentSuccessful": "Investment successful!",
+    "investmentFailed": "Investment failed, please try again.",
+    "riskWarning": "Investment Risk Warning",
+    "riskText": "Crowdfunding investment involves risks. Please carefully evaluate project feasibility and team capabilities before making decisions.",
+    "minAmount": "Minimum Investment",
+    "maxAmount": "Maximum Investment",
+    "errors": {
+      "minAmount": "Investment amount cannot be less than {{amount}}",
+      "maxAmount": "Investment amount cannot exceed {{amount}}",
+      "exceedsRemaining": "Investment amount cannot exceed remaining goal amount {{amount}}"
+    }
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "connected": "Connected",
+    "notConnected": "Not Connected",
+    "pleaseConnect": "Please connect wallet first",
+    "switchNetwork": "Switch Network",
+    "wrongNetwork": "Wrong Network"
+  },
+  "errors": {
+    "loadDataFailed": "Failed to load data",
+    "networkError": "Network error",
+    "unknownError": "Unknown error",
+    "tryAgain": "Please try again"
+  }
+}

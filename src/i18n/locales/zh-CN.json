@@ -1,0 +1,185 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "close": "关闭",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "clear": "清除",
+    "all": "全部",
+    "none": "无",
+    "yes": "是",
+    "no": "否",
+    "back": "返回",
+    "backToHome": "返回首页",
+    "backToTop": "回到顶部",
+    "viewDetails": "详情",
+    "unknown": "未知"
+  },
+  "language": {
+    "chinese": "中文",
+    "english": "EN",
+    "switchToEnglish": "切换到英文",
+    "switchToChinese": "Switch to Chinese"
+  },
+  "header": {
+    "title": "众筹平台",
+    "subtitle": "连接梦想与现实的桥梁，让每一个创意都有机会发光",
+    "connectWallet": "连接钱包",
+    "language": "语言",
+    "wallet": "钱包",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "languageDescription": "切换界面语言",
+    "walletDescription": "连接您的数字钱包"
+  },
+  "stats": {
+    "totalProjects": "总项目数",
+    "activeProjects": "进行中",
+    "totalRaised": "总筹集 (ETH)",
+    "totalInvestors": "总投资者",
+    "successRate": "成功率",
+    "averageInvestment": "平均投资",
+    "totalGoal": "总目标"
+  },
+  "search": {
+    "title": "搜索项目",
+    "placeholder": "输入项目名称、描述或标签...",
+    "category": "项目分类",
+    "status": "项目状态",
+    "sortBy": "排序方式",
+    "quickFilter": "快速筛选",
+    "clearFilter": "清除筛选",
+    "popular": "热门",
+    "foundProjects": "找到 {{count}} 个项目",
+    "categories": {
+      "all": "全部分类",
+      "tech": "科技",
+      "environment": "环保",
+      "game": "游戏",
+      "art": "艺术",
+      "education": "教育",
+      "health": "健康",
+      "finance": "金融",
+      "music": "音乐",
+      "sports": "体育",
+      "food": "美食",
+      "travel": "旅游",
+      "fashion": "时尚",
+      "ai": "人工智能",
+      "blockchain": "区块链",
+      "nft": "NFT",
+      "startup": "创业",
+      "social": "社交",
+      "charity": "慈善",
+      "innovation": "创新",
+      "sustainability": "可持续",
+      "community": "社区",
+      "culture": "文化",
+      "entertainment": "娱乐",
+      "lifestyle": "生活方式",
+      "wellness": "健康",
+      "productivity": "效率",
+      "security": "安全",
+      "privacy": "隐私",
+      "accessibility": "无障碍",
+      "inclusion": "包容",
+      "other": "其他"
+    },
+    "statuses": {
+      "all": "全部状态",
+      "active": "进行中",
+      "completed": "已完成",
+      "myProjects": "我的项目"
+    },
+    "sortOptions": {
+      "newest": "最新发布",
+      "goalLow": "目标金额 ↑",
+      "goalHigh": "目标金额 ↓",
+      "progressHigh": "进度最高",
+      "investorsHigh": "投资者最多"
+    }
+  },
+  "project": {
+    "title": "众筹平台",
+    "subtitle": "发现、投资和支持创新的区块链项目",
+    "noProjects": "暂无项目",
+    "noProjectsFound": "没有找到匹配的项目",
+    "noProjectsDescription": "还没有任何众筹项目",
+    "viewDetails": "详情",
+    "invest": "投资",
+    "goal": "目标",
+    "raised": "已筹集",
+    "investors": "投资者",
+    "investorsCount": "位投资者",
+    "daysLeft": "剩余天数",
+    "progress": "进度",
+    "status": {
+      "active": "进行中",
+      "completed": "已完成",
+      "failed": "失败",
+      "cancelled": "已取消"
+    }
+  },
+  "projectDetail": {
+    "title": "项目详情",
+    "description": "项目描述",
+    "milestones": "里程碑",
+    "investors": "投资者",
+    "investments": "投资记录",
+    "investNow": "立即投资",
+    "backToProjects": "返回项目列表",
+    "milestone": {
+      "completed": "已完成",
+      "pending": "待完成"
+    }
+  },
+  "investment": {
+    "title": "投资项目",
+    "amount": "投资金额",
+    "range": "投资范围",
+    "remaining": "剩余目标",
+    "summary": "投资摘要",
+    "goalReached": "恭喜！您的投资将帮助项目达成目标！",
+    "quickSelect": {
+      "title": "快速选择",
+      "min": "最小",
+      "max": "最大"
+    },
+    "confirmInvestment": "确定",
+    "processing": "处理中...",
+    "investmentSuccessful": "投资成功！",
+    "investmentFailed": "投资失败，请重试。",
+    "riskWarning": "投资风险提示",
+    "riskText": "众筹投资存在风险，请仔细评估项目可行性和团队能力后再做决定。",
+    "minAmount": "最小投资额",
+    "maxAmount": "最大投资额",
+    "errors": {
+      "minAmount": "投资金额不能少于 {{amount}}",
+      "maxAmount": "投资金额不能超过 {{amount}}",
+      "exceedsRemaining": "投资金额不能超过剩余目标金额 {{amount}}"
+    }
+  },
+  "wallet": {
+    "connect": "连接钱包",
+    "disconnect": "断开连接",
+    "connected": "已连接",
+    "notConnected": "未连接",
+    "pleaseConnect": "请先连接钱包",
+    "switchNetwork": "切换网络",
+    "wrongNetwork": "网络错误"
+  },
+  "errors": {
+    "loadDataFailed": "加载数据失败",
+    "networkError": "网络错误",
+    "unknownError": "未知错误",
+    "tryAgain": "请重试"
+  }
+}
