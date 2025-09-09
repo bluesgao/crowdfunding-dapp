@@ -73,11 +73,11 @@ export default function CrowdfundingCard({
       </div>
 
       {/* 内容 */}
-      <div className="p-6 sm:p-8">
-        <h3 className="font-bold text-xl sm:text-2xl text-white mb-4 line-clamp-2">{project.title}</h3>
+      <div className="p-3 sm:p-4">
+        <h3 className="font-bold text-xl sm:text-2xl text-white mb-2 line-clamp-2">{project.title}</h3>
         
         {/* 金额信息 */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-2">
           <div>
             <div className="text-sm text-gray-400">{t('project.raised')}</div>
             <div className="font-bold text-lg text-blue-400">{formatAmount(project.currentAmount)}</div>
@@ -89,7 +89,7 @@ export default function CrowdfundingCard({
         </div>
 
         {/* 进度条 */}
-        <div className="mb-4">
+        <div className="mb-2">
           <div className="w-full bg-gray-700 rounded-full h-2">
             <div 
               className="bg-blue-600 h-2 rounded-full"
@@ -99,7 +99,7 @@ export default function CrowdfundingCard({
         </div>
 
         {/* 日期信息 */}
-        <div className="flex justify-between text-xs text-gray-400 mb-4">
+        <div className="flex justify-between text-xs text-gray-400 mb-2">
           <span>{t('projectDetail.card.startDate')}: {new Date(project.startTime).toLocaleDateString()}</span>
           <span>{t('projectDetail.card.endDate')}: {new Date(project.endTime).toLocaleDateString()}</span>
         </div>
@@ -108,7 +108,7 @@ export default function CrowdfundingCard({
         <div className="flex justify-center">
           <button
             onClick={() => onView?.(project)}
-            className="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 py-3 px-4 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
+            className="w-full bg-gray-700 hover:bg-gray-600 text-gray-200 py-3 px-4 rounded-full font-medium transition-colors text-sm sm:text-base min-h-[44px] sm:min-h-0"
           >
             {t('common.viewDetails')}
           </button>

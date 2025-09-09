@@ -274,7 +274,7 @@ export default function ProjectDetailPage() {
                 {project.status === 'active' ? (
                   <button
                     onClick={() => setInvestModalVisible(true)}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
                   >
                     {t('projectDetail.investNow')}
                   </button>
