@@ -344,7 +344,7 @@ export default function ProjectDetailPage() {
           <div className="p-6 sm:p-8">
             <h3 className="text-lg font-semibold text-white mb-4">项目里程碑</h3>
             <div className="space-y-3">
-              {project.projectMilestone && project.projectMilestone.map((milestone, index) => (
+              {project.projectMilestone && project.projectMilestone.length > 0 ? project.projectMilestone.map((milestone, index) => (
                 <div key={milestone.id} className="flex items-center justify-between py-3 border-b border-gray-700 last:border-b-0">
                   <div className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
@@ -368,7 +368,11 @@ export default function ProjectDetailPage() {
                     )}
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div className="text-center text-gray-400 py-8">
+                  <p>暂无里程碑信息</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -52,10 +52,10 @@ export default function HomePage() {
 
         {/* 分割装饰 */}
         <div className="flex items-center justify-center my-8 sm:my-12">
-          <div className="flex items-center space-x-10">
-            <div className="w-80 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
-            <div className="w-3 h-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg shadow-blue-500/30"></div>
-            <div className="w-80 h-px bg-gradient-to-l from-transparent to-blue-500"></div>
+          <div className="flex items-center space-x-4 sm:space-x-6 lg:space-x-10">
+            <div className="w-16 sm:w-32 md:w-48 lg:w-80 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg shadow-blue-500/30"></div>
+            <div className="w-16 sm:w-32 md:w-48 lg:w-80 h-px bg-gradient-to-l from-transparent to-blue-500"></div>
           </div>
         </div>
 
