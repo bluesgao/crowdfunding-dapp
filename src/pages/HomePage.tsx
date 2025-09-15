@@ -50,9 +50,17 @@ export default function HomePage() {
           <ProjectStats stats={stats || null} />
         </div>
 
+        {/* 分割装饰 */}
+        <div className="flex items-center justify-center my-8 sm:my-12">
+          <div className="flex items-center space-x-10">
+            <div className="w-80 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+            <div className="w-3 h-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg shadow-blue-500/30"></div>
+            <div className="w-80 h-px bg-gradient-to-l from-transparent to-blue-500"></div>
+          </div>
+        </div>
 
         {/* 项目网格 */}
-        <div className="mt-12 sm:mt-16 mb-8 sm:mb-10">
+        <div className="mt-6 sm:mt-8 mb-8 sm:mb-10">
           {projectsLoading ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-6">⏳</div>
