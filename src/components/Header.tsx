@@ -19,8 +19,14 @@ export default function Header() {
         <div className="flex items-center justify-between w-full">
           {/* Logo 和标题 */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <div>
-              <h1 className="text-lg sm:text-2xl font-bold text-white">
+            <div className="relative">
+              {/* 主文字 */}
+              <h1 className="text-lg sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 drop-shadow-lg">
+                {t('header.title')}
+              </h1>
+              
+              {/* 发光效果 */}
+              <h1 className="absolute inset-0 text-lg sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 blur-sm opacity-50">
                 {t('header.title')}
               </h1>
             </div>
