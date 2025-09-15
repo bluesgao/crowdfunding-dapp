@@ -1,32 +1,11 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import type { Project } from '../types/project'
-
-// API 基础配置
-const API_BASE_URL = 'http://localhost:18888'
-
-// 简单的 fetch 封装
-const apiRequest = async <T>(endpoint: string): Promise<T> => {
-    const url = `${API_BASE_URL}${endpoint}`
-    console.log('🌐 发起 API 请求:', url)
-
-    const response = await fetch(url)
-    console.log('📡 API 响应状态:', response.status, response.statusText)
-
-    if (!response.ok) {
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`)
-    }
-
-    const data = await response.json()
-    console.log('📦 API 响应数据:', data)
-    return data
-}
+import { apiRequest } from '../utils/api'
 
 // Query Keys
 export const projectKeys = {
     all: ['projects'] as const,
     lists: () => [...projectKeys.all, 'list'] as const,
-    details: () => [...projectKeys.all, 'detail'] as const,
-    detail: (id: string) => [...projectKeys.details(), id] as const,
 }
 
 // 获取所有项目
@@ -58,35 +37,3 @@ export const useProjects = () => {
     })
 }
 
-// 获取单个项目详情
-export const useProject = (projectId: string) => {
-    return useQuery({
-        queryKey: projectKeys.detail(projectId),
-        queryFn: async () => {
-            console.log('🚀 开始请求单个项目数据...', projectId)
-            try {
-                const result = await apiRequest<{
-                    success: boolean,
-                    message: string,
-                    data: Project
-                }>(`/api/v1/project/${projectId}`)
-                console.log('✅ 单个项目数据请求成功:', result)
-                return result.data // 直接返回项目数据
-            } catch (error) {
-                console.error('❌ 单个项目数据请求失败:', error)
-                throw error
-            }
-        },
-        enabled: !!projectId,
-        staleTime: 5 * 60 * 1000,
-    })
-}
-
-// 刷新单个项目
-export const useRefreshProject = () => {
-    const queryClient = useQueryClient()
-
-    return (projectId: string) => {
-        queryClient.invalidateQueries({ queryKey: projectKeys.detail(projectId) })
-    }
-}

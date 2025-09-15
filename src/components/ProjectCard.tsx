@@ -88,17 +88,17 @@ export default function ProjectCard({
 
       {/* 内容 */}
       <div className="p-3 sm:p-4">
-        <h3 className="font-bold text-xl sm:text-2xl text-white mb-2 line-clamp-2">{project.title}</h3>
+        <h3 className="font-bold text-base text-white mb-2 line-clamp-2">{project.title}</h3>
         
         {/* 金额信息 */}
         <div className="flex justify-between items-center mb-2">
           <div>
             <div className="text-sm text-gray-400">{t('project.raised')}</div>
-            <div className="font-bold text-lg text-blue-400">{formatAmount(project.currentAmount.toString())}</div>
+            <div className="font-bold text-base text-blue-400">{formatAmount(project.currentAmount.toString())}</div>
           </div>
           <div className="text-right">
             <div className="text-sm text-gray-400">{t('project.goal')}</div>
-            <div className="font-bold text-lg text-white">{formatAmount(project.targetAmount.toString())}</div>
+            <div className="font-bold text-base text-white">{formatAmount(project.targetAmount.toString())}</div>
           </div>
         </div>
 

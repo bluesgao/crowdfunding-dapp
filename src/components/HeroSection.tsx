@@ -26,12 +26,9 @@ export default function HeroSection({}: HeroSectionProps) {
           </div>
           
           {/* 副标题 */}
-          <div className="mb-8 sm:mb-10">
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
               {t('header.subtitle')}
             </p>
-          </div>
-          
       </div>
     </div>
   )

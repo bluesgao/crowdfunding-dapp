@@ -19,29 +19,33 @@ export interface Project {
     updatedAt: string // ISO 8601 格式
     // 可选字段（前端可能需要但后端暂时没有的）
     investors?: number
-    milestones?: Milestone[]
+    projectMilestone?: ProjectMilestone[]
     tags?: string[]
-    team?: TeamMember[]
+    projectTeam?: ProjectTeamMember[]
 }
 
-export interface Milestone {
-    id: string
+export interface ProjectMilestone {
+    id: number
+    projectId: number
     title: string
     description: string
-    targetAmount: string // ETH
-    completed: boolean
-    completionTime?: number
+    targetDate: string // ISO 8601 格式
+    completedDate: string // ISO 8601 格式
+    status: 'pending' | 'in_progress' | 'completed' | 'cancelled'
+    progress: number // 0-100
+    priority: 'low' | 'medium' | 'high'
 }
 
-export interface TeamMember {
-    id: string
-    name: string
-    role: string
-    avatar: string
+export interface ProjectTeamMember {
+    id: number
+    projectId: number
+    memberName: string
+    memberRole: string
+    address: string
+    email: string
     bio: string
-    linkedin?: string
-    twitter?: string
-    github?: string
+    avatarUrl: string
+    isActive: boolean
 }
 
 export interface Investment {
@@ -64,7 +68,4 @@ export interface ProjectStats {
     cancelledProjects: number
     totalRaised: string
     totalInvestors: number
-    totalGoal: string
-    successRate: string
-    averageInvestment: string
 }

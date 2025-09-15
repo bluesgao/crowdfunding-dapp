@@ -52,7 +52,7 @@ export default function HomePage() {
 
 
         {/* 项目网格 */}
-        <div className="mb-8 sm:mb-10">
+        <div className="mt-12 sm:mt-16 mb-8 sm:mb-10">
           {projectsLoading ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-6">⏳</div>

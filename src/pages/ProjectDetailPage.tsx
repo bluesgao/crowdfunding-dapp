@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { Project } from '../types/project'
 import { counterContractConfig } from '../contracts/counterContract'
-import { useProject, useRefreshProject } from '../hooks'
+import { useProjectDetail, useRefreshProject } from '../hooks'
 import { getProjectTypeInfo } from '../constants/projectTypes'
 import InvestModal from '../components/InvestModal'
 
@@ -16,7 +16,7 @@ export default function ProjectDetailPage() {
   const [investModalVisible, setInvestModalVisible] = useState(false)
   
   // 使用 react-query hooks
-  const { data: project } = useProject(id!)
+  const { data: project } = useProjectDetail(id!)
   const refreshProject = useRefreshProject()
   
   // 智能合约调用 hooks
@@ -218,12 +218,12 @@ export default function ProjectDetailPage() {
           <div className="p-6 sm:p-8">
             <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.team.title')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {project.team && project.team.length > 0 ? project.team.map((member) => (
+              {project.projectTeam && project.projectTeam.length > 0 ? project.projectTeam.map((member) => (
                 <div key={member.id} className="text-center">
                   <div className="mb-3">
                     <img
-                      src={member.avatar}
-                      alt={member.name}
+                      src={member.avatarUrl}
+                      alt={member.memberName}
                       className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-gray-600"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
@@ -231,8 +231,8 @@ export default function ProjectDetailPage() {
                       }}
                     />
                   </div>
-                  <h4 className="text-base font-semibold text-white mb-1">{member.name}</h4>
-                  <p className="text-blue-400 text-sm">{member.role}</p>
+                  <h4 className="text-base font-semibold text-white mb-1">{member.memberName}</h4>
+                  <p className="text-blue-400 text-sm">{member.memberRole}</p>
                 </div>
               )) : (
                 <div className="col-span-full text-center text-gray-400 py-8">
@@ -344,23 +344,26 @@ export default function ProjectDetailPage() {
           <div className="p-6 sm:p-8">
             <h3 className="text-lg font-semibold text-white mb-4">项目里程碑</h3>
             <div className="space-y-3">
-              {project.milestones && project.milestones.map((milestone, index) => (
+              {project.projectMilestone && project.projectMilestone.map((milestone, index) => (
                 <div key={milestone.id} className="flex items-center justify-between py-3 border-b border-gray-700 last:border-b-0">
                   <div className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                      milestone.completed ? 'bg-green-500 text-white' : 'bg-gray-600 text-gray-300'
+                      milestone.status === 'completed' ? 'bg-green-500 text-white' : 'bg-gray-600 text-gray-300'
                     }`}>
-                      {milestone.completed ? '✓' : index + 1}
+                      {milestone.status === 'completed' ? '✓' : index + 1}
                     </div>
                     <span className="text-gray-300">{milestone.description}</span>
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-medium text-white">
-                      {Number(milestone.targetAmount).toFixed(4)} ETH
+                      {milestone.progress}%
                     </div>
-                    {milestone.completed && milestone.completionTime && (
+                    <div className="text-xs text-gray-400">
+                      目标: {new Date(milestone.targetDate).toLocaleDateString()}
+                    </div>
+                    {milestone.status === 'completed' && milestone.completedDate && (
                       <div className="text-xs text-green-400">
-                        {new Date(milestone.completionTime).toLocaleDateString()}
+                        完成: {new Date(milestone.completedDate).toLocaleDateString()}
                       </div>
                     )}
                   </div>
