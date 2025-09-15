@@ -213,36 +213,6 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        {/* 项目团队 */}
-        <div className="mb-8">
-          <div className="p-6 sm:p-8">
-            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.team.title')}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {project.projectTeam && project.projectTeam.length > 0 ? project.projectTeam.map((member) => (
-                <div key={member.id} className="text-center">
-                  <div className="mb-3">
-                    <img
-                      src={member.avatarUrl}
-                      alt={member.memberName}
-                      className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-gray-600"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiMzNzQxNTEiLz4KPHN2ZyB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0xMiAxNEM5LjMzIDE0IDcgMTYuMzMgNyAxOUgxN0MxNyAxNi4zMyAxNC42NyAxNCAxMiAxNFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+Cjwvc3ZnPg=='
-                      }}
-                    />
-                  </div>
-                  <h4 className="text-base font-semibold text-white mb-1">{member.memberName}</h4>
-                  <p className="text-blue-400 text-sm">{member.memberRole}</p>
-                </div>
-              )) : (
-                <div className="col-span-full text-center text-gray-400 py-8">
-                  <p>暂无团队信息</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
         {/* 进度信息 */}
         <div className="mb-8">
           <div className="p-6 sm:p-8">
@@ -335,6 +305,36 @@ export default function ProjectDetailPage() {
                   </>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 项目团队 */}
+        <div className="mb-8">
+          <div className="p-6 sm:p-8">
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.team.title')}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {project.projectTeam && project.projectTeam.length > 0 ? project.projectTeam.map((member) => (
+                <div key={member.id} className="text-center">
+                  <div className="mb-3">
+                    <img
+                      src={member.avatarUrl}
+                      alt={member.memberName}
+                      className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-gray-600"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiMzNzQxNTEiLz4KPHN2ZyB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0xMiAxNEM5LjMzIDE0IDcgMTYuMzMgNyAxOUgxN0MxNyAxNi4zMyAxNC42NyAxNCAxMiAxNFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+Cjwvc3ZnPg=='
+                      }}
+                    />
+                  </div>
+                  <h4 className="text-base font-semibold text-white mb-1">{member.memberName}</h4>
+                  <p className="text-blue-400 text-sm">{member.memberRole}</p>
+                </div>
+              )) : (
+                <div className="col-span-full text-center text-gray-400 py-8">
+                  <p>暂无团队信息</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
