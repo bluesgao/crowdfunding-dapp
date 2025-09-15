@@ -12,11 +12,22 @@ const config = getDefaultConfig({
   ssr: false,
 })
 
+// 创建 QueryClient 实例
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5分钟
+      gcTime: 10 * 60 * 1000, // 10分钟
+      retry: 3,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
+
 export function Providers({ children }: { children: React.ReactNode }) {
-  const qc = new QueryClient()
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={qc}>
+      <QueryClientProvider client={queryClient}>
         <RainbowKitProvider theme={darkTheme()}>
           {children}
         </RainbowKitProvider>

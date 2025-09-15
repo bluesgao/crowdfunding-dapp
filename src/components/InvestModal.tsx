@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CrowdfundingProject } from '../types/crowdfunding'
-import { formatAmount } from '../utils/crowdfundingContract'
+import { Project } from '../types/project'
+import { formatAmount } from '../utils/helper'
 
 interface InvestModalProps {
-  project: CrowdfundingProject | null
+  project: Project | null
   visible: boolean
   onClose: () => void
-  onInvest: (project: CrowdfundingProject, amount: string) => Promise<void>
+  onInvest: (project: Project, amount: string) => Promise<void>
 }
 
 export default function InvestModal({ project, visible, onClose, onInvest }: InvestModalProps) {
@@ -17,10 +17,10 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
 
   if (!project || !visible) return null
 
-  const minAmount = parseFloat(project.minContribution)
-  const maxAmount = parseFloat(project.maxContribution)
-  const currentAmount = parseFloat(project.currentAmount)
-  const goalAmount = parseFloat(project.goalAmount)
+  const minAmount = project.minAmount
+  const maxAmount = project.maxAmount
+  const currentAmount = project.currentAmount
+  const goalAmount = project.targetAmount
   const remainingAmount = goalAmount - currentAmount
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,12 +29,12 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
     const investAmount = parseFloat(amount)
     
     if (investAmount < minAmount) {
-      alert(t('investment.errors.minAmount', { amount: formatAmount(project.minContribution) }))
+      alert(t('investment.errors.minAmount', { amount: formatAmount(project.minAmount.toString()) }))
       return
     }
     
     if (investAmount > maxAmount) {
-      alert(t('investment.errors.maxAmount', { amount: formatAmount(project.maxContribution) }))
+      alert(t('investment.errors.maxAmount', { amount: formatAmount(project.maxAmount.toString()) }))
       return
     }
     
@@ -63,9 +63,9 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
 
   const quickAmounts = [
     { label: t('investment.quickSelect.min'), value: minAmount.toString() },
-    { label: '0.5 USDT', value: '0.5' },
-    { label: '1 USDT', value: '1' },
-    { label: '2 USDT', value: '2' },
+    { label: '0.01 ETH', value: '0.01' },
+    { label: '0.05 ETH', value: '0.05' },
+    { label: '0.1 ETH', value: '0.1' },
     { label: t('investment.quickSelect.max'), value: Math.min(maxAmount, remainingAmount).toString() }
   ]
 
@@ -102,16 +102,16 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <div className="text-gray-400">{t('project.goal')}</div>
-                  <div className="font-semibold text-white">{formatAmount(project.goalAmount)}</div>
+                  <div className="font-semibold text-white">{formatAmount(project.targetAmount.toString())}</div>
                 </div>
                 <div>
                   <div className="text-gray-400">{t('project.raised')}</div>
-                  <div className="font-semibold text-white">{formatAmount(project.currentAmount)}</div>
+                  <div className="font-semibold text-white">{formatAmount(project.currentAmount.toString())}</div>
                 </div>
                 <div>
                   <div className="text-gray-400">{t('investment.range')}</div>
                   <div className="font-semibold text-white">
-                    {formatAmount(project.minContribution)} - {formatAmount(project.maxContribution)}
+                    {formatAmount(project.minAmount.toString())} - {formatAmount(project.maxAmount.toString())}
                   </div>
                 </div>
                 <div>
@@ -126,7 +126,7 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
               {/* Amount Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-3">
-                  {t('investment.amount')} (USDT) *
+                  {t('investment.amount')} (ETH) *
                 </label>
                 <input
                   type="number"
@@ -136,11 +136,11 @@ export default function InvestModal({ project, visible, onClose, onInvest }: Inv
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-white placeholder-gray-400"
-                  placeholder={`${formatAmount(project.minContribution)} - ${formatAmount(Math.min(maxAmount, remainingAmount).toString())}`}
+                  placeholder={`${formatAmount(project.minAmount.toString())} - ${formatAmount(Math.min(maxAmount, remainingAmount).toString())}`}
                   required
                 />
                 <div className="mt-2 text-xs text-gray-400">
-                  {t('investment.range')}: {formatAmount(project.minContribution)} - {formatAmount(Math.min(maxAmount, remainingAmount).toString())}
+                  {t('investment.range')}: {formatAmount(project.minAmount.toString())} - {formatAmount(Math.min(maxAmount, remainingAmount).toString())}
                 </div>
               </div>
 

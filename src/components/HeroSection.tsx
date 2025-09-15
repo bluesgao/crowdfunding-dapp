@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next'
-import type { ProjectStats } from '../types/crowdfunding'
 
 interface HeroSectionProps {
-  stats: ProjectStats | null
+  // 移除 stats 参数，因为统计数据已经拆分到独立组件
 }
 
-export default function HeroSection({ stats }: HeroSectionProps) {
+export default function HeroSection({}: HeroSectionProps) {
   const { t } = useTranslation()
 
   return (
@@ -33,48 +32,6 @@ export default function HeroSection({ stats }: HeroSectionProps) {
             </p>
           </div>
           
-          {/* 统计数据 */}
-          {stats && (
-            <div className="mb-4 sm:mb-6">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
-                {/* 总项目数 */}
-                <div className="p-3 sm:p-4 text-center bg-gray-800 rounded-lg border border-gray-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.totalProjects}</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.totalProjects')}</div>
-                </div>
-                
-                {/* 进行中项目 */}
-                <div className="p-3 sm:p-4 text-center bg-blue-900 rounded-lg border border-blue-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.activeProjects}</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.activeProjects')}</div>
-                </div>
-                
-                {/* 总筹集 */}
-                <div className="p-3 sm:p-4 text-center bg-green-900 rounded-lg border border-green-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.totalRaised}</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.totalRaised')}</div>
-                </div>
-                
-                {/* 总投资者 */}
-                <div className="p-3 sm:p-4 text-center bg-purple-900 rounded-lg border border-purple-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.totalInvestors}</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.totalInvestors')}</div>
-                </div>
-                
-                {/* 成功率 */}
-                <div className="p-3 sm:p-4 text-center bg-orange-900 rounded-lg border border-orange-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.successRate}%</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.successRate')}</div>
-                </div>
-                
-                {/* 平均投资 */}
-                <div className="p-3 sm:p-4 text-center bg-cyan-900 rounded-lg border border-cyan-700 min-h-[80px] sm:min-h-[90px] flex flex-col justify-center">
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{stats.averageInvestment}</div>
-                  <div className="text-xs sm:text-sm text-gray-300 leading-tight h-8 sm:h-10 flex items-center justify-center">{t('stats.averageInvestment')}</div>
-                </div>
-              </div>
-            </div>
-          )}
       </div>
     </div>
   )

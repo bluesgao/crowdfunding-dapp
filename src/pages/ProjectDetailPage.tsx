@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useAccount } from 'wagmi'
-import { CrowdfundingProject } from '../types/crowdfunding'
-import { crowdfundingContract } from '../utils/crowdfundingContract'
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { Project } from '../types/project'
+import { counterContractConfig } from '../contracts/counterContract'
+import { useProject, useRefreshProject } from '../hooks'
+import { getProjectTypeInfo } from '../constants/projectTypes'
 import InvestModal from '../components/InvestModal'
 
 export default function ProjectDetailPage() {
@@ -11,8 +13,17 @@ export default function ProjectDetailPage() {
   const { address } = useAccount()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [project, setProject] = useState<CrowdfundingProject | null>(null)
   const [investModalVisible, setInvestModalVisible] = useState(false)
+  
+  // 使用 react-query hooks
+  const { data: project } = useProject(id!)
+  const refreshProject = useRefreshProject()
+  
+  // 智能合约调用 hooks
+  const { writeContract, data: hash, isPending, error } = useWriteContract()
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash,
+  })
 
 
   useEffect(() => {
@@ -21,46 +32,49 @@ export default function ProjectDetailPage() {
     if (scrollContainer) {
       scrollContainer.scrollTop = 0
     }
-    
-    if (id) {
-      loadProject()
-    }
-  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
 
-  const loadProject = async () => {
-    try {
-      const projects = await crowdfundingContract.getAllProjects()
-      const foundProject = projects.find(p => p.id === id)
-      if (foundProject) {
-        setProject(foundProject)
-      } else {
-        // 项目不存在，重定向到首页
-        navigate('/')
-      }
-    } catch (error) {
-      console.error('Failed to load project:', error)
-      navigate('/')
-    }
-  }
-
-  const handleInvest = async (project: CrowdfundingProject, amount: string) => {
+  const handleInvest = async (_project: Project, _amount: string) => {
+    console.log('handleInvest', _project, _amount)
     if (!address) {
       alert(t('wallet.pleaseConnect'))
       return
     }
 
-    const success = await crowdfundingContract.investInProject(project.id, amount, address)
-    if (success) {
-      await loadProject() // 重新加载数据
-    } else {
+    try {
+      // 调用智能合约的 increment 函数作为投资操作
+      // 注意：这里使用 Counter 合约作为示例，实际项目中应该使用众筹合约
+      writeContract({
+        ...counterContractConfig,
+        functionName: 'increment',
+        // 如果有投资金额，可以作为 value 传递
+        // value: parseEther(amount),
+      })
+
+      // 等待交易确认
+      if (isConfirmed) {
+        // 交易确认后，刷新项目数据
+        refreshProject(id!)
+        alert(t('investment.investmentSuccessful'))
+      }
+
+      // 如果有错误，抛出异常
+      if (error) {
+        throw new Error(error.message || t('investment.investmentFailed'))
+      }
+
+    } catch (error) {
+      console.error('投资失败:', error)
       throw new Error(t('investment.investmentFailed'))
     }
   }
 
   const getStatusColor = (status: string) => {
     switch (status) {
+      case 'pending': return 'bg-yellow-600 text-white'
+      case 'deploying': return 'bg-purple-600 text-white'
       case 'active': return 'bg-green-600 text-white'
-      case 'completed': return 'bg-blue-600 text-white'
+      case 'success': return 'bg-blue-600 text-white'
       case 'failed': return 'bg-red-600 text-white'
       case 'cancelled': return 'bg-gray-600 text-white'
       default: return 'bg-gray-600 text-white'
@@ -69,10 +83,12 @@ export default function ProjectDetailPage() {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'active': return t('project.status.active')
-      case 'completed': return t('project.status.completed')
-      case 'failed': return t('project.status.failed')
-      case 'cancelled': return t('project.status.cancelled')
+      case 'pending': return '待开始'
+      case 'deploying': return '待上链'
+      case 'active': return '进行中'
+      case 'success': return '成功'
+      case 'failed': return '失败'
+      case 'cancelled': return '已取消'
       default: return '未知'
     }
   }
@@ -101,7 +117,7 @@ export default function ProjectDetailPage() {
     )
   }
 
-  const progressPercentage = (Number(project.currentAmount) / Number(project.goalAmount)) * 100
+  const progressPercentage = (Number(project.currentAmount) / Number(project.targetAmount)) * 100
   const timeRemaining = Math.ceil((Number(project.endTime) - Date.now()) / (1000 * 60 * 60 * 24))
 
   return (
@@ -146,7 +162,7 @@ export default function ProjectDetailPage() {
             <div className="order-2 lg:order-1 relative">
               <img
                 alt={project.title}
-                src={project.image}
+                src={project.imageUrl}
                 className="w-full h-64 sm:h-80 object-cover rounded-xl"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement
@@ -168,10 +184,16 @@ export default function ProjectDetailPage() {
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
                   {project.title}
                 </h1>
+                {/* 项目类型 */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className={`px-4 py-2 rounded-full text-sm font-semibold ${getProjectTypeInfo(project.category).color} text-white shadow-lg`}>
+                    {getProjectTypeInfo(project.category).label}
+                  </span>
+                </div>
               </div>
               
               {/* 项目标签 */}
-              {project.tags.length > 0 && (
+              {project.tags && project.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, index) => (
                     <span key={index} className="bg-blue-500/20 text-blue-300 px-3 py-1.5 rounded-full text-sm font-medium border border-blue-500/30 hover:bg-blue-500/30 transition-colors">
@@ -228,10 +250,10 @@ export default function ProjectDetailPage() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="text-2xl font-bold text-white">
-                  {Number(project.currentAmount).toFixed(2)} USDT
+                  {Number(project.currentAmount).toFixed(4)} ETH
                 </div>
                 <div className="text-sm text-gray-400">
-                  {Number(project.goalAmount).toFixed(2)} USDT
+                  {Number(project.targetAmount).toFixed(4)} ETH
                 </div>
               </div>
               <div className="text-right">
@@ -261,7 +283,7 @@ export default function ProjectDetailPage() {
               <div className="text-center">
                 <div className="text-sm text-gray-400 mb-1">投资范围</div>
                 <div className="text-lg font-semibold text-white">
-                  {Number(project.minContribution).toFixed(2)} - {Number(project.maxContribution).toFixed(2)} USDT
+                  {Number(project.minAmount).toFixed(4)} - {Number(project.maxAmount).toFixed(4)} ETH
                 </div>
               </div>
               <div className="text-center">
@@ -272,12 +294,38 @@ export default function ProjectDetailPage() {
               </div>
               <div className="text-center">
                 {project.status === 'active' ? (
-                  <button
-                    onClick={() => setInvestModalVisible(true)}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    {t('projectDetail.investNow')}
-                  </button>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => setInvestModalVisible(true)}
+                      disabled={isPending || isConfirming}
+                      className={`px-6 py-3 rounded-full font-medium transition-colors ${
+                        isPending || isConfirming
+                          ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                          : 'bg-blue-600 text-white hover:bg-blue-700'
+                      }`}
+                    >
+                      {isPending 
+                        ? t('investment.processing')
+                        : isConfirming 
+                        ? '确认中...'
+                        : t('projectDetail.investNow')
+                      }
+                    </button>
+                    
+                    {/* 显示交易状态 */}
+                    {hash && (
+                      <div className="text-xs text-gray-400">
+                        {isConfirming ? '等待确认...' : isConfirmed ? '交易成功！' : '交易已提交'}
+                      </div>
+                    )}
+                    
+                    {/* 显示错误信息 */}
+                    {error && (
+                      <div className="text-xs text-red-400">
+                        交易失败: {error.message}
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <>
                     <div className="text-sm text-gray-400 mb-1">状态</div>
@@ -296,7 +344,7 @@ export default function ProjectDetailPage() {
           <div className="p-6 sm:p-8">
             <h3 className="text-lg font-semibold text-white mb-4">项目里程碑</h3>
             <div className="space-y-3">
-              {project.milestones.map((milestone, index) => (
+              {project.milestones && project.milestones.map((milestone, index) => (
                 <div key={milestone.id} className="flex items-center justify-between py-3 border-b border-gray-700 last:border-b-0">
                   <div className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
@@ -308,7 +356,7 @@ export default function ProjectDetailPage() {
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-medium text-white">
-                      {Number(milestone.targetAmount).toFixed(2)} USDT
+                      {Number(milestone.targetAmount).toFixed(4)} ETH
                     </div>
                     {milestone.completed && milestone.completionTime && (
                       <div className="text-xs text-green-400">

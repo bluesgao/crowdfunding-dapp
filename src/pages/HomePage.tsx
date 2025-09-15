@@ -1,62 +1,32 @@
-import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import CrowdfundingCard from '../components/CrowdfundingCard'
-import SearchAndFilter from '../components/SearchAndFilter'
+import ProjectCard from '../components/ProjectCard'
 import HeroSection from '../components/HeroSection'
-import { CrowdfundingProject, ProjectStats } from '../types/crowdfunding'
-import { crowdfundingContract } from '../utils/crowdfundingContract'
+import ProjectStats from '../components/ProjectStats'
+import { Project } from '../types/project'
+import { useProjects, useProjectStats } from '../hooks'
 
 export default function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const [projects, setProjects] = useState<CrowdfundingProject[]>([])
-  const [filteredProjects, setFilteredProjects] = useState<CrowdfundingProject[]>([])
-  const [stats, setStats] = useState<ProjectStats | null>(null)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('all')
 
-  // 加载数据
-  useEffect(() => {
-    loadData()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // 使用 react-query hooks
+  const { data: projects = [], isLoading: projectsLoading, error: projectsError } = useProjects()
+  const { data: stats, isLoading: statsLoading, error: statsError } = useProjectStats()
+  
+  // 调试信息
+  console.log('🏠 HomePage - projects:', projects)
+  console.log('🏠 HomePage - stats:', stats)
+  console.log('🏠 HomePage - statsLoading:', statsLoading)
+  console.log('🏠 HomePage - statsError:', statsError)
 
-  // 搜索和过滤
-  useEffect(() => {
-    const filtered = projects
-      .filter(project => {
-        // 搜索过滤
-        if (searchTerm) {
-          const searchLower = searchTerm.toLowerCase()
-          return project.title.toLowerCase().includes(searchLower) ||
-                 project.description.toLowerCase().includes(searchLower) ||
-                 project.tags.some(tag => tag.toLowerCase().includes(searchLower))
-        }
-        return true
-      })
-      .filter(project => {
-        // 分类过滤
-        return categoryFilter === 'all' || project.tags.includes(categoryFilter)
-      })
-      .sort((a, b) => b.startTime - a.startTime) // 按最新时间排序
+  // 项目排序逻辑 - 确保 projects 是数组
+  const sortedProjects = Array.isArray(projects) 
+    ? projects.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime()) 
+    : [] // 按最新时间排序
 
-    setFilteredProjects(filtered)
-  }, [projects, searchTerm, categoryFilter])
 
-  const loadData = async () => {
-    try {
-      const [allProjects, projectStats] = await Promise.all([
-        crowdfundingContract.getAllProjects(),
-        crowdfundingContract.getStats()
-      ])
-      setProjects(allProjects)
-      setStats(projectStats)
-    } catch {
-      alert(t('errors.loadDataFailed'))
-    }
-  }
-
-  const handleViewProject = (project: CrowdfundingProject) => {
+  const handleViewProject = (project: Project) => {
     navigate(`/project/${project.id}`, { 
       state: { from: 'homepage' } 
     })
@@ -71,34 +41,42 @@ export default function HomePage() {
       
       <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
         {/* 头部 */}
-        <div className="mb-8 sm:mb-10">
-          <HeroSection stats={stats} />
+        <div className="mb-4 sm:mb-6">
+          <HeroSection />
         </div>
 
-        {/* 搜索和过滤栏 */}
+        {/* 统计数据 */}
         <div className="mb-8 sm:mb-10">
-          <SearchAndFilter
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            categoryFilter={categoryFilter}
-            setCategoryFilter={setCategoryFilter}
-          />
+          <ProjectStats stats={stats || null} />
         </div>
+
 
         {/* 项目网格 */}
         <div className="mb-8 sm:mb-10">
-          {filteredProjects.length === 0 ? (
+          {projectsLoading ? (
+            <div className="text-center py-16">
+              <div className="text-6xl mb-6">⏳</div>
+              <h3 className="text-2xl font-semibold text-gray-400 mb-3">加载中...</h3>
+              <p className="text-gray-500">正在获取项目数据</p>
+            </div>
+          ) : projectsError ? (
+            <div className="text-center py-16">
+              <div className="text-6xl mb-6">❌</div>
+              <h3 className="text-2xl font-semibold text-red-400 mb-3">加载失败</h3>
+              <p className="text-gray-500">无法获取项目数据，请稍后重试</p>
+            </div>
+          ) : sortedProjects.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-6xl mb-6">🚀</div>
               <h3 className="text-2xl font-semibold text-gray-400 mb-3">{t('project.noProjects')}</h3>
               <p className="text-gray-500 max-w-md mx-auto">
-                {searchTerm ? t('project.noProjectsFound') : t('project.noProjectsDescription')}
+                {t('project.noProjectsDescription')}
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              {filteredProjects.map((project) => (
-                <CrowdfundingCard
+              {sortedProjects.map((project) => (
+                <ProjectCard
                   key={project.id}
                   project={project}
                   onView={handleViewProject}
