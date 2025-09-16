@@ -4,9 +4,9 @@ export default function HeroSection() {
   const { t } = useTranslation()
 
   return (
-    <div className="relative mb-8 sm:mb-10">
+    <div className="relative mb-2 sm:mb-2">
       {/* 内容区域 */}
-      <div className="relative text-center py-6 sm:py-8">
+      <div className="relative text-center py-4 sm:py-4">
         {/* Slogan */}
         <div className="relative">
           {/* 主文字 */}
